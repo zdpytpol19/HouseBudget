@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Main Page{% endblock title %}
+
+{% block body %}<h1>Witamy na stronie Budżetu Domowego!</h1>
+
+{% if user.is_authenticated %}
+    <div class="alert alert-success" role="alert">
+        <h3>Welcome {{ user.username }}!</h3>
+        <a href="{% url 'logout' %}">Logout?</a>
+    </div>
+{% else %}
+    <div class="alert alert-success" role="alert">
+        <h3>Welcome!</h3>
+        <a href="{% url 'register' %}">Signup</a>
+        <a href="{% url 'login' %}">Login</a>
+    </div>
+{% endif %}
+
+
+{% endblock body %}
