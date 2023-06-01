@@ -1,0 +1,23 @@
+
+
+{% block title %}Add Income  {% endblock title %}
+
+{% block body %}
+<br>
+    {% if income %}
+        <div>
+            <p><a> Income has been successfully created!</a></p>
+            {{ income.income }} {{ income.amount_of_income }} </div>
+        <br>
+    {% endif %}
+
+    <form action="{%url 'add_income_cbv'%}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Add Income">
+    </form>
+
+   <p><a href="{% url 'home' %}">Back</a></p>
+
+{% endblock %}
+

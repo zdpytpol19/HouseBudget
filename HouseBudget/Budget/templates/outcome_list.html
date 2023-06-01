@@ -1,0 +1,9 @@
+
+{% block title %} Outcomes list {% endblock title %}
+{% block body %}
+    <h1>This is a list page for a Outcome : {{ owner }}</h1>
+    {% for outcome in outcomes %}
+       <div>{{ outcome }} </div>
+    {% endfor %}
+<p><a href="{% url 'home' %}">Back</a></p>
+{% endblock body %}
