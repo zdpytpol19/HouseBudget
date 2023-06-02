@@ -1,0 +1,16 @@
+
+
+{% block title %}Income update{% endblock title %}
+
+{% block body %}
+
+
+    <form action="{% url 'income_update' income.id %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Update" >
+    </form>
+    <br>
+
+<p><a href="{% url 'income_list' %}">Back</a></p>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% block title %}Outcome update{% endblock title %}
+
+{% block body %}
+
+
+    <form action="{% url 'outcome_update' outcome.id %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Update" >
+    </form>
+    <br>
+   
+<p><a href="{% url 'outcome_list' %}">Back</a></p>
+{% endblock %}

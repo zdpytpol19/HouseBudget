@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpRequest, HttpResponse,HttpResponseBadRequest
 from django.shortcuts import render
 from django.shortcuts import render, redirect
@@ -98,3 +99,109 @@ class IncomeDeletelView(LoginRequiredMixin, View):
         income.delete()
 
         return redirect("income_list.html")
+
+@login_required
+def income_delete(request: HttpRequest, id: int) -> HttpResponse:
+    """
+    Widok do usuwania samochodu, najpierw pobieramy obiekt dla danego id i aktualnie zalogowanego użytkownika,
+    następnie usuwamy, jeśli żadnego obiektu nie wyciągniemy z bazy to po prostu nic się nie usunie
+    """
+    try:
+        income = Income.objects.get(id=id, owner=request.user)  # Upewniam się tutaj, że samochód należy do zalogowanego usera
+        # Jeśli nie to nie zostanie odnaleziony w bazie
+    except Income.DoesNotExist:
+        return HttpResponseBadRequest("Site does not exists")
+    income.delete()
+
+    return redirect("income_list")  # Tutaj podaję name urla na który ma mnie przekierować
+
+@login_required
+def outcome_delete(request: HttpRequest, id: int) -> HttpResponse:
+    """
+    Widok do usuwania samochodu, najpierw pobieramy obiekt dla danego id i aktualnie zalogowanego użytkownika,
+    następnie usuwamy, jeśli żadnego obiektu nie wyciągniemy z bazy to po prostu nic się nie usunie
+    """
+    try:
+        outcome = Outcome.objects.get(id=id, owner=request.user)  # Upewniam się tutaj, że samochód należy do zalogowanego usera
+        # Jeśli nie to nie zostanie odnaleziony w bazie
+    except Outcome.DoesNotExist:
+        return HttpResponseBadRequest("Site does not exists")
+    outcome.delete()
+
+    return redirect("outcome_list")  # Tutaj podaję name urla na który ma mnie przekierować
+
+@login_required()
+def income_update(request: HttpRequest, id: int) -> HttpResponse:
+    """
+    Widok do edycji samochodu, tak jak dla wcześniejszych widoków upewniamy się, że obiekt istnieje w bazie danych i
+    należy do aktualnie zalogowanego użytkownika. W tym widoku będzie się wyświetlał formularz z aktualnymi danymi obiektu
+    możemy coś podmienić i wysłać zapytanie POST tak jak przy tworzeniu.
+    """
+    user = request.user  # aktualnie zalogowany użytkownik
+    try:
+        income = Income.objects.get(id=id, owner=request.user)  # Upewniam się tutaj, że samochód należy do zalogowanego usera
+        # Jeśli nie to nie zostanie odnaleziony w bazie
+
+        # Tu chcemy stworzyć słownik z aktualnymi danymi obiektu
+        initial_data = dict(
+            income=income.income,
+            amount_of_income=income.amount_of_income,
+
+        )
+    except Income.DoesNotExist:
+        return HttpResponseBadRequest("Site does not exists")
+
+    if request.method == "GET":
+        form = IncomeModelForm(initial=initial_data)
+        context = {"form": form, "income": income}
+        return render(request, "income_update.html", context=context)
+
+    elif request.method == "POST":
+        form = IncomeModelForm(request.POST)
+
+        if form.is_valid():
+            Income.objects.filter(id=id, owner=user).update(
+                **form.cleaned_data
+            )
+
+            context = {"form": form, "income": income}
+            return render(request, "income_update.html", context=context)
+        return HttpResponseBadRequest("There are some errors in form")
+
+@login_required()
+def outcome_update(request: HttpRequest, id: int) -> HttpResponse:
+    """
+    Widok do edycji samochodu, tak jak dla wcześniejszych widoków upewniamy się, że obiekt istnieje w bazie danych i
+    należy do aktualnie zalogowanego użytkownika. W tym widoku będzie się wyświetlał formularz z aktualnymi danymi obiektu
+    możemy coś podmienić i wysłać zapytanie POST tak jak przy tworzeniu.
+    """
+    user = request.user  # aktualnie zalogowany użytkownik
+    try:
+        outcome = Outcome.objects.get(id=id, owner=request.user)  # Upewniam się tutaj, że samochód należy do zalogowanego usera
+        # Jeśli nie to nie zostanie odnaleziony w bazie
+
+        # Tu chcemy stworzyć słownik z aktualnymi danymi obiektu
+        initial_data = dict(
+            outcome=outcome.outcome,
+            amount_of_outcome=outcome.amount_of_outcome,
+
+        )
+    except Outcome.DoesNotExist:
+        return HttpResponseBadRequest("Site does not exists")
+
+    if request.method == "GET":
+        form = OutcomeModelForm(initial=initial_data)
+        context = {"form": form, "outcome": outcome}
+        return render(request, "outcome_update.html", context=context)
+
+    elif request.method == "POST":
+        form = OutcomeModelForm(request.POST)
+
+        if form.is_valid():
+            Outcome.objects.filter(id=id, owner=user).update(
+                **form.cleaned_data
+            )
+
+            context = {"form": form, "outcome": outcome}
+            return render(request, "outcome_update.html", context=context)
+        return HttpResponseBadRequest("There are some errors in form")

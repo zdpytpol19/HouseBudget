@@ -10,26 +10,60 @@
 
     <title>{% block title %}Hello, world!{% endblock title %}</title>
   </head>
+
+
+  <style>
+      /* * {
+        box-sizing: border-box;
+      } */
+
+      body {
+        /* margin: 0; */
+        margin: 200px;
+      }
+
+      .box-model {
+        margin: 10px 100px 10px 150px;
+         border-radius: 50px / 50px;
+        /*  margin: górny prawy dolny lewy; */
+        /* margin: 20px 300px 40px 100px; */
+
+        background-color: green;
+        border: 20px solid grey;
+
+        /*  padding: górny prawy dolny lewy; */
+        /* padding: 20px 30px 40px 100px; */
+
+        padding: 20px 20px 20px 20px;
+
+        width: 800px;
+
+        display: inline-block;
+      }
+
+      button {
+        box-sizing: border-box;
+        /* padding: oś-y (vertical) oś-x (horizontal); */
+        padding: 5px 20px;
+        width: 200px;
+
+        /* margin-top: 100px;
+        margin-left: 100px;
+        margin-bottom: 20px;
+        margin-right: 100px; */
+      }
+    </style>
+  </head>
   <body>
-  {% block navbar %}
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#"></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor10" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarColor07">
+    <!--
+      Każdy element HTML (nie ważne czy jedno czy dwutagowy) to pudełko. Pudełko???
+     -->
+    <div class="box-model">
+      <h1>
+      {% block body %}
 
-
-      </div>
-    </div>
-  </nav>
-  {% endblock navbar %}
-  {% block body %}
-
-
-  {% endblock body %}
+      {% endblock body %}
+    </h1></div>
 
 
   </body>
-</html>
