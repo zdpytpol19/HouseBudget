@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from Budget.views import main_page,IncomeAddView,OutcomeAddView,IncomeListView,OutcomeListView,IncomeDeletelView
+from Budget.views import main_page,IncomeAddView,OutcomeAddView,IncomeListView,OutcomeListView,IncomeDeletelView,income_delete,outcome_delete,income_update,outcome_update
 
 from django.contrib.auth import views as auth_views
 from Budget import views as user_views
@@ -29,9 +29,12 @@ urlpatterns = [
     path('register/', user_views.register, name='register'),
     path("income_list", IncomeListView.as_view(), name="income_list"),
     path("outcome_list", OutcomeListView.as_view(), name="outcome_list"),
-    path("income_delete/<int:id>", IncomeDeletelView.as_view(), name="income_delete"),
+    # path("income_delete/<int:id>", IncomeDeletelView.as_view(), name="income_delete"),
+    path("income_delete/<int:id>", income_delete, name="income_delete"),
+    path("outcome_delete/<int:id>", outcome_delete, name="outcome_delete"),
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
-
+    path("income_update/<int:id>", income_update, name="income_update"),
+    path("outcome_update/<int:id>", outcome_update, name="outcome_update"),
 
 ]

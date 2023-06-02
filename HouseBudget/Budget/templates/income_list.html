@@ -3,7 +3,7 @@
 {% block body %}
     <h1>This is a list page for a income : {{ owner }}</h1>
     {% for income in incomes %}
-       <div>{{ income }} <a href="{% url 'income_delete' income.id %}">Delete</a> </div>
+       <div>{{ income }} <a href="{% url 'income_delete' income.id %}">Delete</a> -  <a href="{% url 'income_update' income.id %}">Update</a> </div>
     {% endfor %}
 <p><a href="{% url 'home' %}">Back</a></p>
 {% endblock body %}
