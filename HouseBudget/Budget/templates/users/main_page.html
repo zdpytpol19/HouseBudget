@@ -2,25 +2,25 @@
 
 {% block title %}Main Page{% endblock title %}
 
-{% block body %}<h1>!House Budget!</h1>
+{% block body %}<h1 class="attributiones">!House Budget!</h1>
 
 <form action="{%url 'login'%}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
 <!--        <input type="submit" value="Login">-->
     {% if user.is_authenticated %}
-    <div class="alert alert-success" role="alert">
-        <h3>Welcome {{ user.username }}!</h3>
+
+        <h3 class="attributions">Welcome {{ user.username }}</h3>
         <p><a href="{% url 'add_income_cbv' %}">Add Income</a></p>
         <p><a href="{% url 'add_outcome_cbv' %}">Add Outcome</a>
          <p><a href="{% url 'income_list' %}">Income list</a></p>
         <p><a href="{% url 'outcome_list' %}">Outcome list</a></p>
-        <p><a href="{% url 'logout' %}">Logout?</a></p>
+        <p class="attributiones_l"><a href="{% url 'logout' %}">Logout</a></p>
 
     </div>
 {% else %}
-    <div class="alert alert-success" role="alert">
-        <h3>!Welcome!</h3>
+
+        <h3 class="attributions">!Welcome!</h3>
         <p><a href="{% url 'register' %}">Sign up</a></p>
         <p><a href="{% url 'login' %}">Login</a></p>
     </div>
