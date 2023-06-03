@@ -4,17 +4,21 @@
 {% block body %}
     <br>
     {% if outcome %}
-        <div>
-            <p><a> Outcome has been successfully created!</a></p>
-            {{ outcome.outcome }} {{ outcome.amount_of_outcome }} </div>
+        <div class="attributions">>
+            <p> Outcome has been successfully created!</p>
+            {{ outcome.outcome }} -- {{ outcome.amount_of_outcome }} zł </div>
         <br>
     {% endif %}
 
 
-    <form action="{%url 'add_outcome_cbv'%}" method="post">
+
+    <form class="attributions" action="{%url 'add_outcome_cbv'%}" method="post">
         {% csrf_token %}
+
         {{ form.as_p }}
-        <input type="submit" value="Add Outcome">
+
+        <p class="attributiones_l"> <input type="submit" value="Add Outcome"></p>
+
     </form>
-<p><a href="{% url 'home' %}">Back</a></p>
+<p class="attribution_beck"><a href="{% url 'home' %}">Back</a></p>
 {% endblock %}

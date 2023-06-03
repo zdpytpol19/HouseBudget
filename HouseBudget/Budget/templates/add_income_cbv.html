@@ -5,19 +5,19 @@
 {% block body %}
 <br>
     {% if income %}
-        <div>
-            <p><a> Income has been successfully created!</a></p>
-            {{ income.income }} {{ income.amount_of_income }} </div>
-        <br>
+        <div class="attributions">
+            <p > Income has been successfully created!</p>
+            {{ income.income }} --- {{ income.amount_of_income }} zł</div>
     {% endif %}
-
-    <form action="{%url 'add_income_cbv'%}" method="post">
+ <br>
+  <form class="attributions"  action="{%url 'add_income_cbv'%}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Add Income">
+    </p>
+       <p class="attributiones_l"> <input type="submit" value="Add Income"> </p>
     </form>
 
-   <p><a href="{% url 'home' %}">Back</a></p>
+   <p class="attribution_beck" ><a href="{% url 'home' %}">Back</a></p>
 
 {% endblock %}
 

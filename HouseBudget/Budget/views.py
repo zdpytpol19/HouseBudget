@@ -56,7 +56,7 @@ class IncomeAddView(LoginRequiredMixin, View):
 class OutcomeAddView(LoginRequiredMixin, View):
     def get(self, request: HttpRequest) -> HttpResponse:
         form = OutcomeModelForm()
-        # if form is valid
+        #if form is valid:
         context = {"form": form}
 
         return render(request, "add_outcome_cbv.html", context=context)
@@ -66,7 +66,7 @@ class OutcomeAddView(LoginRequiredMixin, View):
         outcome = form.save(commit=False)
         outcome.owner = request.user
         outcome.save()
-        context = {"form": form, "outcome": outcome}
+        context = {"form": form, "outcome": outcome }
 
         return render(request, "add_outcome_cbv.html", context=context)
 
@@ -165,6 +165,7 @@ def income_update(request: HttpRequest, id: int) -> HttpResponse:
             )
 
             context = {"form": form, "income": income}
+            messages.success(request, "Income has been successfully updated")
             return render(request, "income_update.html", context=context)
         return HttpResponseBadRequest("There are some errors in form")
 
@@ -203,5 +204,7 @@ def outcome_update(request: HttpRequest, id: int) -> HttpResponse:
             )
 
             context = {"form": form, "outcome": outcome}
+            messages.success(request, "Outcome has been successfully updated")
             return render(request, "outcome_update.html", context=context)
+
         return HttpResponseBadRequest("There are some errors in form")
