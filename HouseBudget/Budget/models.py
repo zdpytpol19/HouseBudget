@@ -8,7 +8,7 @@ class Income(models.Model):
 
     owner = models.ForeignKey(User, related_name="incomes", on_delete=models.SET_NULL, null=True)
     income = models.CharField(max_length=100)
-    amount_of_income = models.FloatField(validators=[MinValueValidator(0)])
+    amount_of_income = models.PositiveIntegerField(validators=[MinValueValidator(1)])
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
 

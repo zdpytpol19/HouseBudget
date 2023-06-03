@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 {% block title %} Outcomes list {% endblock title %}
 {% block body %}
-    <h1>This is a list page for a Outcome : {{ user.username }}</h1>
+    <h1 class="attributions">This is a list page for a Outcome : {{ user.username }}</h1>
+<hr>
     {% for outcome in outcomes %}
-       <div>{{ outcome }}<a href="{% url 'outcome_delete' outcome.id %}">Delete</a> -  <a href="{% url 'outcome_update' outcome.id %}">Update</a> </div>
+       <div>{{ outcome }}<a class="attribution_update" href="{% url 'outcome_delete' outcome.id %}">Delete</a> -  <a href="{% url 'outcome_update' outcome.id %}">Update</a> </div>
     {% endfor %}
 <p><a href="{% url 'home' %}">Back</a></p>
 {% endblock body %}

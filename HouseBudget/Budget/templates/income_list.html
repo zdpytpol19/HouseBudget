@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% block title %}Incomes list{% endblock title %}
 {% block body %}
-    <h1>This is a list page for a income : {{ user.username }}</h1>
+    <h1 class="attributions">This is a list page for a income : {{ user.username }}</h1>
+<hr>
     {% for income in incomes %}
        <div>{{ income }} <a href="{% url 'income_delete' income.id %}">Delete</a> -  <a href="{% url 'income_update' income.id %}">Update</a> </div>
     {% endfor %}

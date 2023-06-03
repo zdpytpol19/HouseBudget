@@ -1,16 +1,25 @@
-
+{% extends "base.html" %}
 
 {% block title %}Income update{% endblock title %}
 
 {% block body %}
+<br>
+ {% if messages %}
+<ul>{% for message in messages %}
+    <p class="attributions">{{ message }}</p>
+     <p class="attributions">{{ income.income }} -- {{ income.amount_of_income }} zł</p>
+    {% endfor %}
+</ul>
+{% endif %}
 
+<br>
 
-    <form action="{% url 'income_update' income.id %}" method="post">
+    <form class="attributions" action="{% url 'income_update' income.id %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Update" >
+       <p class="attributiones_l"> <input type="submit" value="Update" ></p>
     </form>
     <br>
 
-<p><a href="{% url 'income_list' %}">Back</a></p>
+<p class="attribution_beck"><a href="{% url 'income_list' %}">Back</a></p>
 {% endblock %}
